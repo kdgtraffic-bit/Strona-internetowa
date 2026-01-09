@@ -13,6 +13,7 @@
         /* === Zmienne CSS Modernizowane === */
         :root {
             --color-primary: #005A9C;
+            --color-primary-light: #0078cf;
             --color-accent: #F09819;
             --color-bg-body: #FFFFFF;
             --color-bg-section: #f8fafc;
@@ -37,80 +38,168 @@
             --glass: rgba(15, 23, 42, 0.8);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease; }
+        /* === Animacje Wejścia === */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         html { font-size: 16px; scroll-behavior: smooth; }
         body { font-family: var(--font-body); color: var(--color-text-main); background-color: var(--color-bg-body); line-height: 1.6; overflow-x: hidden; }
 
         .container { width: 92%; max-width: 1200px; margin: 0 auto; padding: 6rem 0; }
         
-        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem; }
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 800; color: var(--color-primary); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
         h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.1; }
         h2 { font-size: 2.5rem; text-align: center; margin-bottom: 4rem; position: relative; }
         h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--color-accent); margin: 1rem auto; border-radius: 2px; }
         
         .section-intro { text-align: center; max-width: 800px; margin: -2.5rem auto 4rem auto; color: var(--color-text-muted); font-size: 1.2rem; }
 
-        /* Przyciski */
-        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 1rem 2rem; border-radius: 50px; font-family: var(--font-heading); font-weight: 700; text-decoration: none; cursor: pointer; border: none; font-size: 0.95rem; }
+        /* Przyciski Modern */
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 1rem 2rem; border-radius: 50px; font-family: var(--font-heading); font-weight: 700; text-decoration: none; cursor: pointer; border: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn-primary { background: linear-gradient(135deg, var(--color-accent), #ffb347); color: #fff; box-shadow: 0 10px 20px rgba(240, 152, 25, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(240, 152, 25, 0.4); }
         .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 2px solid #fff; backdrop-filter: blur(5px); }
+        .btn-secondary:hover { background: #fff; color: var(--color-primary); transform: translateY(-3px); }
 
         /* Header Modern */
-        .main-header { background: var(--glass); backdrop-filter: blur(15px); border-bottom: 1px solid var(--color-border); position: fixed; width: 100%; top: 0; z-index: 1000; height: 80px; display: flex; align-items: center; }
+        .main-header { background: var(--glass); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid var(--color-border); position: fixed; width: 100%; top: 0; z-index: 1000; height: 80px; display: flex; align-items: center; }
         .main-header .container { display: flex; justify-content: space-between; align-items: center; padding: 0; }
-        .logo { font-size: 1.4rem; font-weight: 800; color: var(--color-primary); text-decoration: none; text-transform: uppercase; }
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--color-primary); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
         .logo span { color: var(--color-accent); }
 
-        .nav-right { display: flex; align-items: center; gap: 2.5rem; }
+        /* Poprawiony układ nawigacji (ikona obok wyceny) */
+        .nav-right { display: flex; align-items: center; }
         .main-nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
         .main-nav a { text-decoration: none; color: var(--color-text-main); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+        .main-nav a:hover { color: var(--color-accent); }
+        .cta-nav { background: var(--color-primary); color: #fff !important; padding: 0.6rem 1.5rem; border-radius: 50px; }
+        .cta-nav:hover { background: var(--color-primary-light); }
 
-        .nav-actions { display: flex; align-items: center; gap: 1rem; }
-        .cta-nav { background: var(--color-primary); color: #fff !important; padding: 0.6rem 1.5rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.85rem; }
-        
-        .theme-toggle { background: none; border: 1px solid var(--color-border); color: var(--color-text-main); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .theme-toggle {
+            background: none; border: 2px solid var(--color-border); color: var(--color-text-main);
+            padding: 5px 10px; border-radius: 20px; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; font-size: 1.2rem; margin-left: 1rem; height: 38px; width: 45px;
+        }
 
-        /* Hero */
+        /* Hero Modern */
         .hero-section { min-height: 100vh; display: flex; align-items: center; background: #000 url('tlo2.png') center/cover no-repeat fixed; color: #fff; text-align: center; padding-top: 80px; position: relative; }
         .hero-section::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0, 40, 70, 0.8), rgba(0, 90, 156, 0.6)); }
-        .hero-section .container { position: relative; z-index: 2; }
-        .hero-section .subtitle { font-size: 1.4rem; margin-bottom: 3rem; }
+        .hero-section .container { position: relative; z-index: 2; animation: fadeInUp 1s ease-out; }
+        .hero-section .subtitle { font-size: 1.4rem; font-weight: 400; margin-bottom: 3rem; color: rgba(255,255,255,0.9); }
 
-        /* O nas Modern */
-        #o-nas { background: linear-gradient(135deg, var(--color-bg-section) 0%, #e2e8f0 100%); position: relative; overflow: hidden; }
-        #o-nas::before { content: 'INFO'; position: absolute; font-size: 20rem; font-weight: 900; color: rgba(0,0,0,0.02); top: -100px; right: -50px; z-index: 0; }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
-        .about-text-highlight { font-size: 1.5rem; color: var(--color-primary); font-weight: 700; border-left: 5px solid var(--color-accent); padding-left: 2rem; }
+        /* Sekcja O Nas */
+        #o-nas { 
+            background: linear-gradient(135deg, var(--color-bg-section) 0%, #e2e8f0 100%); 
+            position: relative;
+            overflow: hidden;
+        }
+        #o-nas::before {
+            content: 'INFO';
+            position: absolute;
+            font-size: 20rem;
+            font-weight: 900;
+            color: rgba(0,0,0,0.02);
+            top: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+        .about-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 4rem; 
+            align-items: center; 
+            position: relative; 
+            z-index: 1;
+        }
+        .about-text-highlight { 
+            font-size: 1.5rem; 
+            color: var(--color-primary); 
+            font-weight: 700; 
+            line-height: 1.3;
+            border-left: 5px solid var(--color-accent);
+            padding-left: 2rem;
+        }
+        .about-desc { font-size: 1.1rem; color: var(--color-text-muted); }
 
         /* Usługi Bento Grid */
+        #uslugi { background: var(--color-bg-body); }
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .service-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: 20px; padding: 3rem 2rem; box-shadow: 0 10px 30px var(--color-shadow); }
-        .service-card li { position: relative; padding-left: 1.5rem; list-style: none; margin-bottom: 0.5rem; color: var(--color-text-muted); }
+        .service-card { 
+            background: var(--color-bg-card); 
+            border: 1px solid var(--color-border); 
+            border-radius: 20px; 
+            padding: 3rem 2rem; 
+            box-shadow: 0 10px 30px var(--color-shadow); 
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .service-card:hover { transform: translateY(-10px); border-color: var(--color-accent); box-shadow: 0 20px 40px rgba(0, 90, 156, 0.15); }
+        .service-card h4 { font-size: 1.3rem; margin-bottom: 1.5rem; min-height: 3.5rem; }
+        .service-card ul { list-style: none; margin-top: auto; }
+        .service-card li { position: relative; padding-left: 2rem; margin-bottom: 1rem; color: var(--color-text-muted); font-size: 0.95rem; }
         .service-card li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent); font-weight: 700; }
 
         /* Realizacje Modern */
         #realizacje { background: var(--color-bg-section); }
-        .case-study { display: grid; grid-template-columns: 1fr 1.5fr; background: var(--color-bg-card); border-radius: 30px; overflow: hidden; margin-bottom: 4rem; box-shadow: 0 20px 50px var(--color-shadow); }
-        .case-study-image { background-size: cover; background-position: center; min-height: 350px; }
-        .case-study-content { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+        .case-study { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 0; 
+            background: var(--color-bg-card); 
+            border-radius: 30px; 
+            overflow: hidden; 
+            margin-bottom: 4rem; 
+            box-shadow: 0 20px 50px var(--color-shadow); 
+        }
+        .case-study:nth-child(even) { direction: rtl; }
+        .case-study:nth-child(even) .case-study-content { direction: ltr; }
+        
+        .case-study-image { background-size: cover; background-position: center; min-height: 400px; filter: grayscale(20%); transition: 0.5s; }
+        .case-study:hover .case-study-image { filter: grayscale(0%); transform: scale(1.05); }
+        
+        .case-study-content { padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
+        .case-study h4 { font-size: 1.8rem; margin-bottom: 2rem; }
+        .case-study p { margin-bottom: 1rem; font-size: 1.05rem; }
+        .case-study strong { color: var(--color-accent); font-size: 0.9rem; text-transform: uppercase; display: block; margin-top: 1rem; }
 
-        /* Kontakt */
-        .contact-wrapper { display: grid; grid-template-columns: 1.5fr 1fr; background: var(--color-bg-card); border-radius: 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); overflow: hidden; }
+        /* Kontakt Modern */
+        .contact-wrapper { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr; 
+            gap: 0; 
+            background: var(--color-bg-card); 
+            border-radius: 30px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1); 
+            overflow: hidden;
+        }
         .contact-form-side { padding: 4rem; }
         .contact-info-side { background: var(--color-primary); color: #fff; padding: 4rem; display: flex; flex-direction: column; justify-content: space-between; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 1rem; border: 2px solid var(--color-border); border-radius: 12px; background: var(--color-bg-section); color: var(--color-text-main); }
-        .rodo-text { font-size: 0.8rem; color: var(--color-text-muted); display: flex; align-items: flex-start; }
+        .contact-info-side h3 { color: #fff; font-size: 2rem; }
+        .contact-info-side a { color: var(--color-accent); text-decoration: none; font-size: 1.2rem; font-weight: 700; }
 
-        /* Footer */
-        .main-footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 4rem 0; }
+        .form-group { margin-bottom: 2rem; }
+        .form-group label { display: block; margin-bottom: 0.8rem; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; color: var(--color-text-muted); }
+        .form-group input, .form-group textarea { 
+            width: 100%; padding: 1.2rem; border: 2px solid var(--color-border); 
+            border-radius: 12px; background: var(--color-bg-section); color: var(--color-text-main); font-family: inherit; font-size: 1rem;
+        }
+        .form-group input:focus { border-color: var(--color-accent); outline: none; background: #fff; }
+
+        /* Footer Modern */
+        .main-footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 4rem 0; border-top: 1px solid rgba(255,255,255,0.05); }
         .main-footer a { color: #fff; text-decoration: none; font-weight: 700; }
 
-        /* Cookie Banner */
-        #cookie-banner { position: fixed; bottom: 0; left: 0; width: 100%; background: #222; color: #fff; padding: 20px; z-index: 2000; display: none; justify-content: center; align-items: center; box-shadow: 0 -2px 10px rgba(0,0,0,0.5); font-size: 0.9rem; }
-        #cookie-banner button { background: var(--color-accent); color: #fff; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; margin-left: 20px; }
-
-        @media (max-width: 992px) { .services-grid, .about-grid, .case-study, .contact-wrapper { grid-template-columns: 1fr; } .main-nav { display: none; } #cookie-banner { flex-direction: column; text-align: center; } #cookie-banner button { margin-top: 15px; margin-left: 0; } }
+        @media (max-width: 992px) { 
+            .services-grid, .about-grid, .case-study, .contact-wrapper { grid-template-columns: 1fr; } 
+            .case-study:nth-child(even) { direction: ltr; }
+            .hero-section h1 { font-size: 3rem; }
+            .nav-right { flex-direction: column; gap: 1rem; }
+            .main-nav ul { gap: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -124,14 +213,12 @@
                         <li><a href="#o-nas">O nas</a></li>
                         <li><a href="#uslugi">Usługi</a></li>
                         <li><a href="#realizacje">Realizacje</a></li>
+                        <li><a href="#kontakt" class="cta-nav">Wycena</a></li>
                     </ul>
                 </nav>
-                <div class="nav-actions">
-                    <a href="#kontakt" class="cta-nav">Wycena</a>
-                    <button id="theme-toggle" class="theme-toggle" title="Przełącz tryb">
-                        <span id="theme-icon">🌙</span>
-                    </button>
-                </div>
+                <button id="theme-toggle" class="theme-toggle" title="Przełącz tryb">
+                    <span id="theme-icon">🌙</span>
+                </button>
             </div>
         </div>
     </header>
@@ -151,8 +238,12 @@
         <section id="o-nas">
             <div class="container">
                 <div class="about-grid">
-                    <div class="about-text-highlight">Partner godny zaufania w projektach drogowych</div>
-                    <div class="about-desc">Jesteśmy zespołem inżynierów ruchu, dla których priorytetem jest precyzja danych i bezpieczeństwo użytkowników dróg.</div>
+                    <div class="about-text-highlight">
+                        Partner godny zaufania w projektach drogowych
+                    </div>
+                    <div class="about-desc">
+                        Jesteśmy zespołem inżynierów ruchu, dla których priorytetem jest precyzja danych i bezpieczeństwo użytkowników dróg.
+                    </div>
                 </div>
             </div>
         </section>
@@ -160,30 +251,55 @@
         <section id="uslugi">
             <div class="container">
                 <h2>Kompleksowe usługi w zakresie Inżynierii Ruchu</h2>
+                <p class="section-intro">Zapewniamy pełne wsparcie na każdym etapie procesu inwestycyjnego – od analiz po wdrożenie.</p>
                 <div class="services-grid">
                     <article class="service-card">
                         <h4>Analizy i Pomiary Ruchu</h4>
-                        <ul><li>Pomiary natężenia ruchu</li><li>Analizy przepustowości</li><li>Prognozy ruchu</li></ul>
+                        <ul>
+                            <li>Pomiary natężenia ruchu (wideo, manualne)</li>
+                            <li>Analizy przepustowości (HCM/HBS)</li>
+                            <li>Prognozy ruchu</li>
+                        </ul>
                     </article>
                     <article class="service-card">
                         <h4>Symulacje Mikroskopowe (Vissim)</h4>
-                        <ul><li>Modelowanie złożonych układów</li><li>Testowanie wariantów</li><li>Wizualizacje 3D</li></ul>
+                        <ul>
+                            <li>Modelowanie złożonych układów drogowych</li>
+                            <li>Testowanie wariantów (ronda vs. sygnalizacja)</li>
+                            <li>Wizualizacje 3D dla prezentacji</li>
+                        </ul>
                     </article>
                     <article class="service-card">
                         <h4>Projekty Stałej Organizacji Ruchu (SOR)</h4>
-                        <ul><li>Projekty dla nowych dróg</li><li>Oznakowanie pionowe/poziome</li><li>Sygnalizacja świetlna</li></ul>
+                        <ul>
+                            <li>Projekty dla nowych dróg i przebudów</li>
+                            <li>Oznakowanie pionowe i poziome</li>
+                            <li>Projekty sygnalizacji świetlnej</li>
+                        </ul>
                     </article>
                     <article class="service-card">
                         <h4>Projekty Tymczasowej Organizacji Ruchu (TOR)</h4>
-                        <ul><li>Zabezpieczenie robót</li><li>Projekty na czas imprez</li><li>Minimalizacja utrudnień</li></ul>
+                        <ul>
+                            <li>Zabezpieczenie robót drogowych</li>
+                            <li>Projekty na czas imprez masowych</li>
+                            <li>Minimalizacja utrudnień w ruchu</li>
+                        </ul>
                     </article>
                     <article class="service-card">
                         <h4>Programy Sygnalizacji Świetlnej</h4>
-                        <ul><li>Projektowanie programów</li><li>Optymalizacja cykli</li><li>Koordynacja "zielona fala"</li></ul>
+                        <ul>
+                            <li>Projektowanie programów (stałoczasowych, akomodacyjnych)</li>
+                            <li>Optymalizacja i kalibracja sygnalizacji</li>
+                            <li>Koordynacja ("zielona fala")</li>
+                        </ul>
                     </article>
                     <article class="service-card">
                         <h4>Doradztwo i Ekspertyzy</h4>
-                        <ul><li>Analizy wpływu inwestycji</li><li>Opinie inżynierskie</li><li>Wsparcie administracyjne</li></ul>
+                        <ul>
+                            <li>Analizy wpływu inwestycji na ruch</li>
+                            <li>Opinie i ekspertyzy inżynierskie</li>
+                            <li>Wsparcie w procesach administracyjnych</li>
+                        </ul>
                     </article>
                 </div>
             </div>
@@ -192,22 +308,25 @@
         <section id="realizacje">
             <div class="container">
                 <h2>Nasze Projekty w Praktyce</h2>
+                <p class="section-intro">Nic nie buduje zaufania tak, jak pomyślnie zrealizowane, złożone projekty.</p>
+                
                 <div class="case-study">
                     <div class="case-study-image" style="background-image: url('S106_Z2.png');"></div>
                     <div class="case-study-content">
                         <h4>Modernizacja skrzyżowania - Analiza Vissim</h4>
-                        <p><strong>Wyzwanie:</strong> Optymalizacja strat czasu w centrum miasta.</p>
-                        <p><strong>Rozwiązanie:</strong> Symulacja 3 wariantów i nowy program sygnalizacji.</p>
-                        <p><strong>Wynik:</strong> Skrócenie czasu przejazdu o 17%.</p>
+                        <p><strong>Wyzwanie:</strong> Skrzyżowanie w centrum miasta powodowało znaczne straty czasu w godzinach szczytu.</p>
+                        <p><strong>Rozwiązanie:</strong> Symulacja 3 wariantów i zaprojektowanie nowego, akomodacyjnego programu sygnalizacji.</p>
+                        <p><strong>Wynik:</strong> Skrócenie czasu przejazdu o 17% i poprawa bezpieczeństwa.</p>
                     </div>
                 </div>
+
                 <div class="case-study">
-                    <div class="case-study-image" style="background-image: url('projekt.png');"></div>
+                    <div class="case-study-image" style="background-image: url('projekt2.png');"></div>
                     <div class="case-study-content">
                         <h4>Projekt SOR - Infrastruktura Rowerowa</h4>
-                        <p><strong>Wyzwanie:</strong> Modernizacja pod budowę przejazdów rowerowych.</p>
-                        <p><strong>Rozwiązanie:</strong> Pełny Projekt SOR z uwzględnieniem grup rowerowych.</p>
-                        <p><strong>Wynik:</strong> Bezpieczna komunikacja wielomodalna.</p>
+                        <p><strong>Wyzwanie:</strong> Modernizacja infrastruktury skrzyżowania wskutek budowy przejazdów rowerowych.</p>
+                        <p><strong>Rozwiązanie:</strong> Opracowanie Projektu Stałej Organizacji Ruchu z uwzględnieniem grup rowerowych.</p>
+                        <p><strong>Wynik:</strong> Bezpieczna i płynna komunikacja wielomodalna.</p>
                     </div>
                 </div>
             </div>
@@ -219,13 +338,13 @@
                     <div class="contact-form-side">
                         <h2>Wycena i Kontakt</h2>
                         <form action="https://formsubmit.co/kdgtraffic@gmail.com" method="POST">
-                            <div class="form-group"><input type="text" name="name" placeholder="Imię i Nazwisko" required></div>
-                            <div class="form-group"><input type="email" name="email" placeholder="Email" required></div>
-                            <div class="form-group"><textarea name="message" rows="5" placeholder="Opis projektu" required></textarea></div>
+                            <div class="form-group"><label>Imię i Nazwisko</label><input type="text" name="name" required></div>
+                            <div class="form-group"><label>Email</label><input type="email" name="email" required></div>
+                            <div class="form-group"><label>Opis projektu</label><textarea name="message" rows="5" required></textarea></div>
                             <div class="form-group">
-                                <label class="rodo-text">
-                                    <input type="checkbox" required style="width: auto; margin-right: 10px; margin-top: 5px;"> 
-                                    Zgadzam się na przetwarzanie danych przez zespół KDG Traffic. <a href="polityka.html" style="margin-left: 5px;">Polityka Prywatności</a>.
+                                <label style="font-weight: 400; font-size: 0.85rem; display: flex; align-items: flex-start;">
+                                    <input type="checkbox" name="rodo" required style="width: auto; margin-right: 10px; margin-top: 5px;"> 
+                                    Zgadzam się na przetwarzanie danych osobowych przez zespół KDG Traffic w celu udzielenia odpowiedzi na zapytanie. <a href="polityka.html" style="margin-left: 5px;">Polityka Prywatności</a>.
                                 </label>
                             </div>
                             <button type="submit" class="btn btn-primary" style="width: 100%;">Wyślij zapytanie</button>
@@ -233,13 +352,17 @@
                     </div>
                     <div class="contact-info-side">
                         <div>
-                            <h3>Kontakt</h3>
+                            <h3>Dane kontaktowe</h3>
                             <p style="margin-top: 2rem;"><strong>Zespół KDG Traffic</strong></p>
-                            <p style="margin-top: 1rem;"><a href="tel:+48793351388">+48 793 351 388</a><br><a href="tel:+48799237592">+48 799 237 592</a><br><a href="tel:+48883940808">+48 883 940 808</a></p>
+                            <p style="margin-top: 1rem;">
+                                <a href="tel:+48793351388">+48 793 351 388</a><br>
+                                <a href="tel:+48799237592">+48 799 237 592</a><br>
+                                <a href="tel:+48883940808">+48 883 940 808</a>
+                            </p>
                         </div>
                         <div>
                             <p><a href="mailto:kdgtraffic@gmail.com">kdgtraffic@gmail.com</a></p>
-                            <p style="margin-top: 1rem;">ul. Wolności 92b/12, Ruda Śląska</p>
+                            <p style="margin-top: 1rem;">ul. Wolności 92b/12<br>41-700 Ruda Śląska</p>
                         </div>
                     </div>
                 </div>
@@ -251,34 +374,28 @@
         <p>&copy; 2026 KDG Traffic. Wszelkie prawa zastrzeżone. | <a href="polityka.html">Polityka Prywatności</a></p>
     </footer>
 
-    <div id="cookie-banner">
-        <p>Strona używa plików cookies w celu poprawy komfortu użytkowania. Korzystając z serwisu, wyrażasz na to zgodę.</p>
-        <button id="accept-cookies">Akceptuję</button>
-    </div>
-
     <script>
-        // Tryb Ciemny
         const btn = document.getElementById("theme-toggle");
         const icon = document.getElementById("theme-icon");
-        if (localStorage.getItem("theme") === "dark") {
+        const currentTheme = localStorage.getItem("theme");
+
+        if (currentTheme === "dark") {
             document.body.classList.add("dark-mode");
             icon.textContent = "☀️";
         }
-        btn.addEventListener("click", () => {
+
+        btn.addEventListener("click", function() {
             document.body.classList.toggle("dark-mode");
-            const theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
-            icon.textContent = theme === "dark" ? "☀️" : "🌙";
+            let theme = "light";
+            if (document.body.classList.contains("dark-mode")) {
+                theme = "dark";
+                icon.textContent = "☀️";
+            } else {
+                icon.textContent = "🌙";
+            }
             localStorage.setItem("theme", theme);
         });
-
-        // Cookies
-        if (!localStorage.getItem("cookiesAccepted")) {
-            document.getElementById("cookie-banner").style.display = "flex";
-        }
-        document.getElementById("accept-cookies").addEventListener("click", () => {
-            localStorage.setItem("cookiesAccepted", "true");
-            document.getElementById("cookie-banner").style.display = "none";
-        });
     </script>
+
 </body>
 </html>
