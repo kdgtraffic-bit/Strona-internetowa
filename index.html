@@ -10,72 +10,104 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
+        /* === Zmienne CSS dla Trybu Jasnego === */
         :root {
             --color-primary: #005A9C;
             --color-accent: #F09819;
-            --color-dark: #222831;
-            --color-light: #FFFFFF;
-            --color-gray: #F4F7F6;
+            --color-bg-body: #FFFFFF;
+            --color-bg-section: #F4F7F6;
+            --color-bg-card: #FFFFFF;
+            --color-text-main: #222831;
+            --color-text-muted: #555555;
+            --color-border: #eeeeee;
+            --color-shadow: rgba(0, 0, 0, 0.05);
             --font-heading: 'Montserrat', sans-serif;
             --font-body: 'Open Sans', sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* === Zmienne CSS dla Trybu Ciemnego === */
+        body.dark-mode {
+            --color-bg-body: #121212;
+            --color-bg-section: #1E1E1E;
+            --color-bg-card: #252525;
+            --color-text-main: #E0E0E0;
+            --color-text-muted: #AAAAAA;
+            --color-border: #333333;
+            --color-shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease; }
         html { font-size: 16px; scroll-behavior: smooth; }
-        body { font-family: var(--font-body); color: var(--color-dark); line-height: 1.7; }
+        body { font-family: var(--font-body); color: var(--color-text-main); background-color: var(--color-bg-body); line-height: 1.7; }
 
         .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 4rem 0; }
         h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; color: var(--color-primary); margin-bottom: 1.5rem; }
         h1 { font-size: 2.8rem; }
         h2 { font-size: 2.2rem; text-align: center; }
-        h4 { font-size: 1.1rem; color: var(--color-dark); font-weight: 700; }
+        h4 { font-size: 1.1rem; color: var(--color-text-main); font-weight: 700; }
         
-        .section-intro { text-align: center; max-width: 800px; margin: -1rem auto 3rem auto; color: #555; font-size: 1.1rem; }
+        .section-intro { text-align: center; max-width: 800px; margin: -1rem auto 3rem auto; color: var(--color-text-muted); font-size: 1.1rem; }
 
+        /* Przyciski */
         .btn { display: inline-block; padding: 0.8rem 1.8rem; border-radius: 5px; font-family: var(--font-heading); font-weight: 600; text-decoration: none; transition: 0.3s; cursor: pointer; border: none; }
-        .btn-primary { background-color: var(--color-accent); color: var(--color-light); }
+        .btn-primary { background-color: var(--color-accent); color: #FFFFFF; }
         .btn-primary:hover { background-color: #d9850c; transform: translateY(-2px); }
-        .btn-secondary { background-color: transparent; color: var(--color-light); border: 2px solid var(--color-light); }
-        .btn-secondary:hover { background-color: var(--color-light); color: var(--color-primary); }
+        .btn-secondary { background-color: transparent; color: #FFFFFF; border: 2px solid #FFFFFF; }
+        .btn-secondary:hover { background-color: #FFFFFF; color: var(--color-primary); }
 
-        /* Header */
-        .main-header { background: var(--color-light); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        /* Nagłówek i Nawigacja */
+        .main-header { background: var(--color-bg-body); box-shadow: 0 2px 10px var(--color-shadow); position: sticky; top: 0; z-index: 1000; }
         .main-header .container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--color-primary); text-decoration: none; }
-        .main-nav ul { display: flex; list-style: none; }
-        .main-nav li { margin-left: 2rem; }
-        .main-nav a { text-decoration: none; color: var(--color-dark); font-weight: 600; }
-        .main-nav a.cta-nav { background: var(--color-accent); color: var(--color-light); padding: 0.5rem 1rem; border-radius: 5px; }
+        
+        .nav-right { display: flex; align-items: center; }
+        .main-nav ul { display: flex; list-style: none; align-items: center; }
+        .main-nav li { margin-left: 1.5rem; }
+        .main-nav a { text-decoration: none; color: var(--color-text-main); font-weight: 600; font-size: 0.95rem; }
+        .main-nav a:hover { color: var(--color-accent); }
+        .cta-nav { background: var(--color-accent); color: #FFFFFF !important; padding: 0.5rem 1rem; border-radius: 5px; margin-left: 1rem; }
+
+        /* Przełącznik Trybu Ciemnego */
+        .theme-toggle {
+            background: none; border: 2px solid var(--color-border); color: var(--color-text-main);
+            padding: 5px 10px; border-radius: 20px; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; font-size: 1.2rem; margin-left: 1rem;
+        }
 
         /* Hero */
-        .hero-section { background: var(--color-primary) url('tlo2.png') center/cover no-repeat; color: var(--color-light); text-align: center; padding: 8rem 0; position: relative; z-index: 1; }
+        .hero-section { background: var(--color-primary) url('tlo2.png') center/cover no-repeat; color: #FFFFFF; text-align: center; padding: 8rem 0; position: relative; z-index: 1; }
         .hero-section::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 90, 156, 0.75); z-index: -1; }
-        .hero-section h1 { color: var(--color-light); text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
+        .hero-section h1 { color: #FFFFFF; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
         .hero-section .subtitle { font-size: 1.3rem; margin-bottom: 2rem; text-shadow: 1px 1px 6px rgba(0,0,0,0.8); }
 
         /* Usługi */
+        #uslugi { background: var(--color-bg-body); }
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .service-card { background: var(--color-light); border: 1px solid #eee; border-radius: 8px; padding: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .service-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: 8px; padding: 2rem; box-shadow: 0 4px 15px var(--color-shadow); }
         .service-card ul { list-style: none; }
         .service-card li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
         .service-card li::before { content: '✓'; position: absolute; left: 0; color: var(--color-accent); font-weight: 700; }
 
         /* Realizacje */
-        #realizacje { background: var(--color-gray); }
-        .case-study { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; background: var(--color-light); border-radius: 8px; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
-        .case-study-image { background-size: cover; background-position: center; min-height: 250px; }
+        #realizacje { background: var(--color-bg-section); }
+        .case-study { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; background: var(--color-bg-card); border-radius: 8px; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 4px 15px var(--color-shadow); }
+        .case-study-image { background-size: cover; background-position: center; min-height: 250px; border-right: 1px solid var(--color-border); }
         .case-study-content { padding: 2rem; }
 
         /* Kontakt */
-        .contact-wrapper { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; background: var(--color-light); padding: 3rem; border-radius: 8px; }
+        #kontakt { background: var(--color-bg-body); }
+        .contact-wrapper { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; background: var(--color-bg-card); border: 1px solid var(--color-border); padding: 3rem; border-radius: 8px; }
         .form-group { margin-bottom: 1.2rem; }
         .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group input, .form-group select, .form-group textarea { 
+            width: 100%; padding: 0.8rem; border: 1px solid var(--color-border); 
+            border-radius: 5px; background: var(--color-bg-body); color: var(--color-text-main);
+        }
         .contact-details a { color: var(--color-primary); text-decoration: none; font-weight: 600; }
 
         /* Footer */
-        .main-footer { background: var(--color-dark); color: #aaa; text-align: center; padding: 2rem 0; }
-        .main-footer a { color: var(--color-light); text-decoration: none; }
+        .main-footer { background: #1a1a1a; color: #aaa; text-align: center; padding: 2rem 0; }
+        .main-footer a { color: #FFFFFF; text-decoration: none; }
 
         @media (max-width: 992px) { .services-grid { grid-template-columns: 1fr; } .case-study, .contact-wrapper { grid-template-columns: 1fr; } .main-nav { display: none; } }
     </style>
@@ -85,14 +117,19 @@
     <header class="main-header">
         <div class="container">
             <a href="#hero" class="logo">KDG Traffic</a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#o-nas">O nas</a></li>
-                    <li><a href="#uslugi">Usługi</a></li>
-                    <li><a href="#realizacje">Realizacje</a></li>
-                    <li><a href="#kontakt" class="cta-nav">Wycena</a></li>
-                </ul>
-            </nav>
+            <div class="nav-right">
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#o-nas">O nas</a></li>
+                        <li><a href="#uslugi">Usługi</a></li>
+                        <li><a href="#realizacje">Realizacje</a></li>
+                        <li><a href="#kontakt" class="cta-nav">Wycena</a></li>
+                    </ul>
+                </nav>
+                <button id="theme-toggle" class="theme-toggle" title="Przełącz tryb">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -106,6 +143,11 @@
                     <a href="#kontakt" class="btn btn-secondary">Szybka wycena projektu</a>
                 </div>
             </div>
+        </section>
+
+        <section id="o-nas" class="container">
+            <h2>Partner godny zaufania w projektach drogowych</h2>
+            <p class="section-intro">Jesteśmy zespołem inżynierów ruchu, dla których priorytetem jest precyzja danych i bezpieczeństwo użytkowników dróg.</p>
         </section>
 
         <section id="uslugi">
@@ -169,6 +211,7 @@
             <div class="container">
                 <h2>Nasze Projekty w Praktyce</h2>
                 <p class="section-intro">Nic nie buduje zaufania tak, jak pomyślnie zrealizowane, złożone projekty.</p>
+                
                 <div class="case-study">
                     <div class="case-study-image" style="background-image: url('S106_Z2.png');"></div>
                     <div class="case-study-content">
@@ -178,8 +221,9 @@
                         <p><strong>Wynik:</strong> Skrócenie czasu przejazdu o 17% i poprawa bezpieczeństwa.</p>
                     </div>
                 </div>
+
                 <div class="case-study">
-                    <div class="case-study-image" style="background-image: url('projekt2.png');"></div>
+                    <div class="case-study-image" style="background-image: url('projekt.png');"></div>
                     <div class="case-study-content">
                         <h4>Projekt SOR - Infrastruktura Rowerowa</h4>
                         <p><strong>Wyzwanie:</strong> Modernizacja infrastruktury skrzyżowania wskutek budowy przejazdów rowerowych.</p>
@@ -226,6 +270,30 @@
         <p>&copy; 2026 KDG Traffic. Wszelkie prawa zastrzeżone. | <a href="polityka.html">Polityka Prywatności</a></p>
     </footer>
 
+    <script>
+        const btn = document.getElementById("theme-toggle");
+        const icon = document.getElementById("theme-icon");
+        const currentTheme = localStorage.getItem("theme");
+
+        // Sprawdzenie zapisanego motywu
+        if (currentTheme === "dark") {
+            document.body.classList.add("dark-mode");
+            icon.textContent = "☀️";
+        }
+
+        btn.addEventListener("click", function() {
+            document.body.classList.toggle("dark-mode");
+            
+            let theme = "light";
+            if (document.body.classList.contains("dark-mode")) {
+                theme = "dark";
+                icon.textContent = "☀️";
+            } else {
+                icon.textContent = "🌙";
+            }
+            localStorage.setItem("theme", theme);
+        });
+    </script>
+
 </body>
 </html>
-
